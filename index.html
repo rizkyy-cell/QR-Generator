@@ -354,7 +354,7 @@
                 <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                 </svg>
-                Download (QRGeneratorBYkyy.png)
+                Download Now
             </button>
         </div>
 
@@ -400,21 +400,28 @@
             document.getElementById('preview-section').classList.remove('hidden');
         }
 
-                // Fungsi Download (Kualitas HD Diperbaiki)
+                        // Fungsi Download (Kualitas HD & Nama File Random)
         function downloadImage() {
             const targetElement = document.getElementById('preview-qris');
             window.scrollTo(0,0); 
 
             html2canvas(targetElement, { 
-                scale: 4, // Diubah dari 2 ke 4 agar kualitas gambar super tajam
+                scale: 4, // Skala 4x agar HD dan tidak pecah
                 useCORS: true,
                 backgroundColor: null,
                 logging: false,
-                imageTimeout: 0 // Tambahan agar render gambar background tidak gagal
+                imageTimeout: 0
             }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = 'QRGeneratorBYkyy.png'; 
-                link.href = canvas.toDataURL('image/png', 1.0); // Tambahan '1.0' untuk kompresi maksimal
+                
+                // Membuat angka random 4 digit (contoh: 4829)
+                const angkaRandom = Math.floor(1000 + Math.random() * 9000);
+                
+                // Menetapkan nama file dengan angka random
+                link.download = 'QR_Merchant_kyy_' + angkaRandom + '.png'; 
+                
+                // Kompresi maksimal 1.0 agar jernih
+                link.href = canvas.toDataURL('image/png', 1.0); 
                 link.click();
             });
         }
