@@ -9,14 +9,14 @@
     <title>QRIS-Generator-Template</title>
   <meta property="og:title" content="QRIS Merchant Generator BY kyy">
 <meta property="og:description" content="Alat pembuat template QRIS Custom dengan mudah dan instan.">
-<meta property="og:image" content="banner.jpg"> <meta property="og:url" content="https://website-anda.com">
+<meta property="og:image" content="https://qr-generator-kappa-ivory.vercel.app/banner.jpg"> 
+<meta property="og:url" content="https://qr-generator-kappa-ivory.vercel.app/">
 <meta property="og:type" content="website">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="QRIS Merchant Generator BY kyy">
 <meta name="twitter:description" content="Alat pembuat template QRIS Custom dengan mudah dan instan.">
-<meta name="twitter:image" content="banner.jpg">
-
+<meta name="twitter:image" content="https://qr-generator-kappa-ivory.vercel.app/banner.jpg">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -400,22 +400,25 @@
             document.getElementById('preview-section').classList.remove('hidden');
         }
 
-        // Fungsi Download
+                // Fungsi Download (Kualitas HD Diperbaiki)
         function downloadImage() {
             const targetElement = document.getElementById('preview-qris');
             window.scrollTo(0,0); 
 
             html2canvas(targetElement, { 
-                scale: 2, 
+                scale: 4, // Diubah dari 2 ke 4 agar kualitas gambar super tajam
                 useCORS: true,
-                backgroundColor: null 
+                backgroundColor: null,
+                logging: false,
+                imageTimeout: 0 // Tambahan agar render gambar background tidak gagal
             }).then(canvas => {
                 const link = document.createElement('a');
                 link.download = 'QRGeneratorBYkyy.png'; 
-                link.href = canvas.toDataURL('image/png');
+                link.href = canvas.toDataURL('image/png', 1.0); // Tambahan '1.0' untuk kompresi maksimal
                 link.click();
             });
         }
+      
     </script>
 </body>
 </html>
