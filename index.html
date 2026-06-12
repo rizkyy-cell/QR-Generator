@@ -7,53 +7,22 @@
     <meta name="keywords" content="QRIS, Generator QRIS, QRIS Merchant, QR Code Indonesia">
     <meta name="author" content="kyy">
     <title>QRIS-Generator-Template</title>
-  <meta property="og:title" content="QRIS Merchant Generator BY kyy">
-<meta property="og:description" content="Alat pembuat template QRIS Custom dengan mudah dan instan.">
-<meta property="og:image" content="https://qr-generator-kappa-ivory.vercel.app/banner.jpg"> 
-<meta property="og:url" content="https://qr-generator-kappa-ivory.vercel.app/">
-<meta property="og:type" content="website">
+    
+    <meta property="og:title" content="QRIS Merchant Generator BY kyy">
+    <meta property="og:description" content="Alat pembuat template QRIS Custom dengan mudah dan instan.">
+    <meta property="og:image" content="https://qr-generator-kappa-ivory.vercel.app/banner.jpg"> 
+    <meta property="og:url" content="https://qr-generator-kappa-ivory.vercel.app/">
+    <meta property="og:type" content="website">
 
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="QRIS Merchant Generator BY kyy">
-<meta name="twitter:description" content="Alat pembuat template QRIS Custom dengan mudah dan instan.">
-<meta name="twitter:image" content="https://qr-generator-kappa-ivory.vercel.app/banner.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="QRIS Merchant Generator BY kyy">
+    <meta name="twitter:description" content="Alat pembuat template QRIS Custom dengan mudah dan instan.">
+    <meta name="twitter:image" content="https://qr-generator-kappa-ivory.vercel.app/banner.jpg">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <style>
-
-      /* Gaya untuk kotak banner */
-.panel-banner {
-    position: relative;
-    padding: 35px 20px;
-    text-align: center;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    letter-spacing: 0.5px;
-    overflow: hidden;
-    border-radius: 20px 20px 0 0; /* Opsional: melengkungkan sudut atas */
-}
-
-/* Mengatur video agar pas memenuhi kotak banner saja */
-.banner-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-}
-
-/* Mengatur teks judul agar ada di atas video */
-.banner-text {
-    position: relative;
-    z-index: 2;
-    text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.9); /* Bayangan hitam agar teks terbaca */
-}
-
         /* Reset & Base Styles */
         * {
             box-sizing: border-box;
@@ -70,7 +39,7 @@
             min-height: 100vh;
         }
 
-        /* CONTAINER (Susunan Atas-Bawah) */
+        /* CONTAINER */
         .container {
             display: flex;
             flex-direction: column; 
@@ -80,7 +49,7 @@
             width: 100%;
         }
     
-        /* PANEL UTAMA (Glassmorphism) */
+        /* PANEL UTAMA */
         .panel {
             background: rgba(17, 24, 39, 0.65);
             backdrop-filter: blur(12px);
@@ -93,10 +62,10 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
         }
 
-        /* BANNER JUDUL (Dengan Video Background) */
+        /* BANNER JUDUL */
         .panel-banner {
             position: relative;
-            padding: 35px 20px;
+            padding: 30px 20px;
             text-align: center;
             color: white;
             font-weight: bold;
@@ -116,12 +85,48 @@
         .banner-text {
             position: relative;
             z-index: 2;
-            text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.9); /* Bayangan agar teks kontras di atas video */
+            text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.9);
+        }
+        .banner-subtitle {
+            position: relative;
+            z-index: 2;
+            font-size: 12px;
+            font-weight: 500;
+            color: #D1D5DB;
+            margin-top: 5px;
+            text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.9);
+        }
+
+        /* TAB MENU */
+        .tab-menu {
+            display: flex;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 6px;
+            margin: 15px 20px 0 20px;
+            border-radius: 12px;
+            gap: 5px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 10px 5px;
+            background: transparent;
+            border: none;
+            color: #9CA3AF;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .tab-btn.active {
+            background: #3B82F6;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         /* AREA FORM */
         .form-content {
-            padding: 25px;
+            padding: 20px;
         }
         .form-group { margin-bottom: 16px; }
         .form-group label {
@@ -146,6 +151,14 @@
         .form-control:focus { border-color: #3B82F6; }
         .form-row { display: flex; gap: 15px; }
         .form-row .form-group { flex: 1; }
+        
+        .divider-text {
+            text-align: center;
+            color: #9CA3AF;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
 
         /* BUTTON SUBMIT */
         .btn-submit {
@@ -164,19 +177,21 @@
         .btn-submit:hover { background-color: #2563EB; }
         .hidden { display: none !important; }
 
-        /* AREA PREVIEW & TEMPLATE QRIS */
+        /* AREA PREVIEW */
         .preview-area {
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
         }
+
+        /* PREVIEW QRIS (MERCHANT) */
         .qris-template {
             position: relative;
             width: 380px; 
             height: 538px;
             background-color: white;
-            background-image: url('qr-background.jpg'); /* Pastikan file ini ada di folder HP */
+            background-image: url('qr-background.jpg');
             background-size: cover;
             background-position: center;
             border-radius: 8px;
@@ -185,20 +200,14 @@
             color: black;
             flex-shrink: 0; 
         }
-
-        /* TIPOGRAFI TEMPLATE */
         .abs-text { position: absolute; width: 100%; text-align: center; z-index: 10; background: transparent; }
         .disp-name { top: 110px; font-weight: 800; font-size: 22px; letter-spacing: 0.5px; color: #000000; }
-        
-        /* Font NMID & TID lebih tipis, warna abu-abu gelap */
         .disp-nmid { top: 140px; font-size: 14px; font-weight: 500; color: #374151; }
         .disp-tid { top: 160px; font-size: 15px; font-weight: 500; color: #374151; }
-        
-        /* KOTAK QR CODE (Ukurannya dikecilkan dan diposisikan di tengah) */
         .qr-container {
             position: absolute;
             top: 205px;
-            left: 115px; /* (380 - 150) / 2 = 115px (Posisi Pas Tengah) */
+            left: 115px;
             width: 150px;
             height: 150px;
             background: transparent;
@@ -208,78 +217,51 @@
             overflow: hidden;
             z-index: 10;
         }
-
-        /* Slogan Baru di bawah QR */
-        .disp-slogan {
-            position: absolute;
-            top: 380px; 
-            width: 100%;
-            text-align: center;
-            font-size: 15px;
-            font-weight: 800;
-            color: #000000;
-            z-index: 10;
-        }
-        
-        .disp-link {
-            position: absolute;
-            bottom: 85px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            text-align: center;
-            font-size: 11px;
-            font-weight: 600;
-            color: #374151;
-            background: transparent;
-            padding: 5px 0;
-            z-index: 10;
-        }
+        .disp-slogan { position: absolute; top: 380px; width: 100%; text-align: center; font-size: 15px; font-weight: 800; color: #000000; z-index: 10; }
+        .disp-link { position: absolute; bottom: 85px; left: 50%; transform: translateX(-50%); width: 90%; text-align: center; font-size: 11px; font-weight: 600; color: #374151; z-index: 10; }
         .disp-link span { color: #1E3A8A; font-weight: bold; }
-        
-        .disp-footer {
-            position: absolute;
-            bottom: 25px;
-            left: 20px;
-            font-size: 10px;
-            font-weight: 600;
-            line-height: 1.3;
-            text-align: left;
-            background: transparent;
-            padding-right: 5px;
-            z-index: 10;
-            color: #374151;
-        }
+        .disp-footer { position: absolute; bottom: 25px; left: 20px; font-size: 10px; font-weight: 600; line-height: 1.3; text-align: left; z-index: 10; color: #374151; }
 
-        /* BUTTON DOWNLOAD */
-        .btn-download {
+        /* PREVIEW QR BIASA (KOTAK PUTIH POLOS) */
+        .biasa-template {
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            background-color: #10B981;
-            margin-top: 25px;
-            width: 100%;
-            max-width: 380px;
-            padding: 14px;
-            color: white;
-            border: none;
+            flex-shrink: 0; 
+        }
+
+        /* ABOUT BOX */
+        .about-box {
+            background-color: rgba(31, 41, 55, 0.8);
+            padding: 20px;
             border-radius: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 15px;
-            transition: background-color 0.2s;
+            border: 1px solid #374151;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #D1D5DB;
+        }
+        .about-box h3 { color: #60A5FA; margin-bottom: 12px; border-bottom: 1px solid #374151; padding-bottom: 8px;}
+        .about-box ol { margin-left: 20px; margin-bottom: 20px; }
+        .about-box li { margin-bottom: 6px; }
+        .copyright { text-align: center; font-weight: bold; margin-top: 25px; color: #9CA3AF; font-size: 12px; letter-spacing: 1px;}
+
+        /* BUTTON DOWNLOAD */
+        .btn-download {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            background-color: #10B981; margin-top: 25px; width: 100%; max-width: 380px; padding: 14px;
+            color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 15px;
         }
         .btn-download:hover { background-color: #059669; }
         .btn-download svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; }
 
-        /* RESPONSIVE: Layar HP Kecil otomatis zoom-out gambar agar tidak terpotong */
+        /* RESPONSIVE */
         @media (max-width: 400px) {
-            .qris-template {
-                transform: scale(0.85);
-                transform-origin: top center;
-                margin-bottom: -70px;
-            }
+            .qris-template { transform: scale(0.85); transform-origin: top center; margin-bottom: -70px; }
+            .tab-btn { font-size: 11px; padding: 10px 2px; }
         }
     </style>
 </head>
@@ -289,18 +271,24 @@
         
         <div class="panel">
             <div class="panel-banner">
-                <video autoplay loop muted playsinline class="banner-video">
+                <video autoplay loop muted playsinline webkit-playsinline class="banner-video">
                     <source src="background-profile.mp4" type="video/mp4">
                 </video>
-                <span class="banner-text">QRIS Merchant Generator BY kyy</span>
+                <div class="banner-text">QRIS Merchant Generator BY kyy</div>
+                <div class="banner-subtitle">Developer & Creator: Rizky Kurniawan</div>
+            </div>
+
+            <div class="tab-menu">
+                <button id="btn-tab-qris" class="tab-btn active" onclick="switchTab('qris')">QRIS Merchant</button>
+                <button id="btn-tab-biasa" class="tab-btn" onclick="switchTab('biasa')">QR Biasa</button>
+                <button id="btn-tab-about" class="tab-btn" onclick="switchTab('about')">How & About</button>
             </div>
             
-            <div class="form-content" id="form-qris">
+            <div class="form-content tab-content" id="form-qris">
                 <div class="form-group">
-                    <label>Masukkan Link Pembayaran Aplikasi Anda</label>
-                    <input type="text" id="input-qris-data" class="form-control" placeholder="Masukkan link...">
+                    <label>Masukkan Link Pembayaran</label>
+                    <input type="text" id="input-qris-data" class="form-control" placeholder="Contoh: https://link-qris.com/bayar...">
                 </div>
-
                 <div class="form-group" style="margin-top: 20px;">
                     <label>Nama Toko</label>
                     <input type="text" id="input-qris-name" class="form-control" placeholder="Nama Toko Anda">
@@ -323,46 +311,94 @@
                     <label>Versi Cetak</label>
                     <input type="text" id="input-qris-versi" class="form-control" placeholder="Contoh: 1.0.12.06.26">
                 </div>
+                <button onclick="generateQris()" class="btn-submit">Generate Template Merchant</button>
+            </div>
 
-                <button onclick="generateQris()" class="btn-submit">Generate QRIS Template</button>
+            <div class="form-content tab-content hidden" id="form-biasa">
+                <div class="form-group">
+                    <label>Upload Gambar QR Lama (Opsional)</label>
+                    <input type="file" id="input-biasa-file" class="form-control" accept="image/*">
+                </div>
+                
+                <div class="divider-text">ATAU</div>
+
+                <div class="form-group">
+                    <label>Masukkan Link / Teks QR Baru</label>
+                    <input type="text" id="input-biasa-data" class="form-control" placeholder="Contoh: https://website.com">
+                </div>
+                
+                <button onclick="generateBiasa()" class="btn-submit">Generate QR Polos</button>
+            </div>
+
+            <div class="form-content tab-content hidden" id="form-about">
+                <div class="about-box">
+                    <h3>📖 Cara Penggunaan</h3>
+                    <ol>
+                        <li>Pilih menu <b>QRIS Merchant</b> untuk mencetak kode pada papan akrilik toko, atau <b>QR Biasa</b> untuk cetak barcode umum.</li>
+                        <li>Masukkan link URL atau upload gambar yang valid.</li>
+                        <li>Isi data nama toko dan identitas jika diperlukan.</li>
+                        <li>Klik "Generate" lalu tekan tombol Download.</li>
+                    </ol>
+
+                    <h3>ℹ️ Tentang Aplikasi</h3>
+                    <p>Aplikasi ini dibuat khusus untuk mempermudah pembuatan cetakan kartu QR Code beresolusi tinggi (HD) secara instan. Hasil download dijamin tajam dan siap langsung di-print.</p>
+
+                    <div class="copyright">
+                        © 2026 RIZKY KURNIAWAN.<br>All Rights Reserved.
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="panel preview-area hidden" id="preview-section">
             
-            <div id="preview-qris" class="qris-template">
+            <div id="preview-qris" class="qris-template hidden">
                 <div id="disp-name" class="abs-text disp-name"></div>
                 <div id="disp-nmid" class="abs-text disp-nmid"></div>
                 <div id="disp-tid" class="abs-text disp-tid"></div>
-
                 <div class="qr-container" id="qrcode-qris-container"></div>
-                
                 <div class="disp-slogan">SATU QRIS UNTUK SEMUA</div>
-
                 <div class="disp-link">
                     Cek aplikasi penyelenggara di:<br>
-                    <span>https://QR-Generator.vercel.app/</span>
+                    <span>https://qr-generator-kappa-ivory.vercel.app/</span>
                 </div>
-
                 <div class="disp-footer">
                     Dicetak oleh: <span id="disp-nns"></span><br>
                     Versi cetak: <span id="disp-versi"></span>
                 </div>
             </div>
 
+            <div id="preview-biasa" class="biasa-template hidden">
+                <div id="qrcode-biasa-container" style="width: 250px; height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden;"></div>
+            </div>
+
             <button onclick="downloadImage()" class="btn-download">
                 <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                 </svg>
-                Download Now
+                Download Gambar (HD)
             </button>
         </div>
 
     </div>
 
     <script>
+        // Fungsi Tab Menu
+        function switchTab(tabName) {
+            // Sembunyikan semua konten form
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            // Reset status tombol tab
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            // Sembunyikan area preview jika pindah tab
+            document.getElementById('preview-section').classList.add('hidden');
+            
+            // Tampilkan form dan tombol yang diklik
+            document.getElementById('form-' + tabName).classList.remove('hidden');
+            document.getElementById('btn-tab-' + tabName).classList.add('active');
+        }
+
+        // Fungsi Generate QRIS Merchant
         function generateQris() {
-            // Ambil Input
             const name = document.getElementById('input-qris-name').value.trim();
             const nmid = document.getElementById('input-qris-nmid').value.trim();
             const tid = document.getElementById('input-qris-tid').value.trim();
@@ -375,14 +411,12 @@
                 return;
             }
 
-            // Tempel ke Template
             document.getElementById('disp-name').innerText = name || '';
             document.getElementById('disp-nmid').innerText = nmid ? "NMID : " + nmid : '';
             document.getElementById('disp-tid').innerText = tid ? "TID : " + tid : '';
             document.getElementById('disp-nns').innerText = nns || '';
             document.getElementById('disp-versi').innerText = versi || '';
 
-            // Generate QR Code Rapat (Ukuran 150x150)
             const container = document.getElementById('qrcode-qris-container');
             container.innerHTML = ''; 
 
@@ -396,36 +430,85 @@
                 quietZone: 0
             });
             
-            // Tampilkan Preview
+            // Sembunyikan Preview Biasa, Tampilkan Preview QRIS
+            document.getElementById('preview-biasa').classList.add('hidden');
+            document.getElementById('preview-qris').classList.remove('hidden');
             document.getElementById('preview-section').classList.remove('hidden');
         }
 
-                        // Fungsi Download (Kualitas HD & Nama File Random)
+        // Fungsi Generate QR Biasa
+        function generateBiasa() {
+            const fileInput = document.getElementById('input-biasa-file');
+            const textInput = document.getElementById('input-biasa-data').value.trim();
+            const container = document.getElementById('qrcode-biasa-container');
+            
+            if (!textInput && (!fileInput.files || fileInput.files.length === 0)) {
+                alert("Harap masukkan Link/Teks ATAU Upload File terlebih dahulu!");
+                return;
+            }
+
+            container.innerHTML = ''; 
+            
+            // Sembunyikan Preview QRIS, Tampilkan Preview Biasa
+            document.getElementById('preview-qris').classList.add('hidden');
+            document.getElementById('preview-biasa').classList.remove('hidden');
+
+            // Logika Prioritas File Gambar vs Teks
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'contain';
+                    container.appendChild(img);
+                    document.getElementById('preview-section').classList.remove('hidden');
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                new QRCode(container, {
+                    text: textInput, 
+                    width: 250, 
+                    height: 250,
+                    colorDark : "#000000", 
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H,
+                    quietZone: 0
+                });
+                document.getElementById('preview-section').classList.remove('hidden');
+            }
+        }
+
+        // Fungsi Download (Kualitas HD & Nama File Random Dinamis)
         function downloadImage() {
-            const targetElement = document.getElementById('preview-qris');
+            // Deteksi template mana yang sedang aktif
+            let targetId = 'preview-qris';
+            if (!document.getElementById('preview-biasa').classList.contains('hidden')) {
+                targetId = 'preview-biasa';
+            }
+            
+            const targetElement = document.getElementById(targetId);
             window.scrollTo(0,0); 
 
             html2canvas(targetElement, { 
-                scale: 4, // Skala 4x agar HD dan tidak pecah
+                scale: 4, 
                 useCORS: true,
                 backgroundColor: null,
                 logging: false,
                 imageTimeout: 0
             }).then(canvas => {
                 const link = document.createElement('a');
-                
-                // Membuat angka random 4 digit (contoh: 4829)
                 const angkaRandom = Math.floor(1000 + Math.random() * 9000);
                 
-                // Menetapkan nama file dengan angka random
-                link.download = 'QR_Merchant_kyy_' + angkaRandom + '.png'; 
+                // Setel penamaan file berdasarkan fitur yang di-download
+                let prefix = targetId === 'preview-biasa' ? 'QR_Biasa_kyy_' : 'QR_Merchant_kyy_';
+                link.download = prefix + angkaRandom + '.png'; 
                 
-                // Kompresi maksimal 1.0 agar jernih
                 link.href = canvas.toDataURL('image/png', 1.0); 
                 link.click();
             });
         }
-      
     </script>
 </body>
 </html>
