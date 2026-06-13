@@ -8,7 +8,7 @@
     <meta name="author" content="kyy">
     <title>QRIS-Generator-Template</title>
     
-    <meta property="og:title" content="QRIS Merchant Generator BY KYY">
+    <meta property="og:title" content="QRIS Merchant Generator BY kyy">
     <meta property="og:description" content="Alat pembuat template QRIS Custom dengan mudah dan instan.">
     <meta property="og:image" content="https://qr-generator-kappa-ivory.vercel.app/banner.jpg"> 
     <meta property="og:url" content="https://qr-generator-kappa-ivory.vercel.app/">
@@ -23,407 +23,93 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <style>
-        /* Reset & Base Styles */
-        * {
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            background-color: #0A0F1D;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-            min-height: 100vh;
-        }
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #0A0F1D; color: #ffffff; display: flex; justify-content: center; padding: 20px; min-height: 100vh; user-select: none; -webkit-user-select: none; }
+        input, select { user-select: auto; -webkit-user-select: auto; outline: none !important; }
 
-        /* CONTAINER */
-        .container {
-            display: flex;
-            flex-direction: column; 
-            align-items: center;
-            gap: 20px;
-            max-width: 500px; 
-            width: 100%;
-        }
-    
-        /* PANEL UTAMA */
-        .panel {
-            background: rgba(17, 24, 39, 0.65);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 0;
-            border-radius: 20px;
-            width: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            overflow: hidden;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-        }
+        .container { display: flex; flex-direction: column; align-items: center; gap: 20px; max-width: 500px; width: 100%; }
+        .panel { background: rgba(17, 24, 39, 0.65); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 0; border-radius: 20px; width: 100%; border: 1px solid rgba(255, 255, 255, 0.1); overflow: hidden; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5); }
+        .panel-banner { position: relative; padding: 30px 20px; text-align: center; color: white; font-weight: bold; font-size: 18px; letter-spacing: 0.5px; overflow: hidden; }
+        .banner-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+        .banner-text { position: relative; z-index: 2; text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.9); }
+        .banner-subtitle { position: relative; z-index: 2; font-size: 12px; font-weight: 500; color: #D1D5DB; margin-top: 5px; text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.9); }
 
-        /* BANNER JUDUL */
-        .panel-banner {
-            position: relative;
-            padding: 30px 20px;
-            text-align: center;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-            letter-spacing: 0.5px;
-            overflow: hidden;
-        }
-        .banner-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 1;
-        }
-        .banner-text {
-            position: relative;
-            z-index: 2;
-            text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.9);
-        }
-        .banner-subtitle {
-            position: relative;
-            z-index: 2;
-            font-size: 12px;
-            font-weight: 500;
-            color: #D1D5DB;
-            margin-top: 5px;
-            text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.9);
-        }
+        .tab-menu { display: flex; background: rgba(0, 0, 0, 0.4); padding: 6px; margin: 15px 20px 0 20px; border-radius: 12px; gap: 5px; }
+        .tab-btn { flex: 1; padding: 10px 5px; background: transparent; border: none; color: #9CA3AF; border-radius: 8px; font-weight: bold; font-size: 12px; cursor: pointer; transition: all 0.3s; outline: none; }
+        .tab-btn.active { background: #3B82F6; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
 
-        /* TAB MENU */
-        .tab-menu {
-            display: flex;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 6px;
-            margin: 15px 20px 0 20px;
-            border-radius: 12px;
-            gap: 5px;
-        }
-        .tab-btn {
-            flex: 1;
-            padding: 10px 5px;
-            background: transparent;
-            border: none;
-            color: #9CA3AF;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .tab-btn.active {
-            background: #3B82F6;
-            color: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        /* AREA FORM */
-        .form-content {
-            padding: 20px;
-        }
+        .form-content { padding: 20px; }
         .form-group { margin-bottom: 16px; }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #ffffff; 
-            font-size: 13px;
-            font-weight: bold;
-        }
-        .form-control {
-            width: 100%;
-            padding: 12px;
-            background-color: rgba(31, 41, 55, 0.8);
-            border: 1px solid #374151;
-            border-radius: 10px;
-            color: white;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
+        .form-group label { display: block; margin-bottom: 8px; color: #ffffff; font-size: 13px; font-weight: bold; }
+        .form-control { width: 100%; padding: 12px; background-color: rgba(31, 41, 55, 0.8); border: 1px solid #374151; border-radius: 10px; color: white; font-size: 14px; transition: border-color 0.2s; }
         .form-control::placeholder { color: #9CA3AF; }
         .form-control:focus { border-color: #3B82F6; }
         .form-row { display: flex; gap: 15px; }
         .form-row .form-group { flex: 1; }
-        
-        .divider-text {
-            text-align: center;
-            color: #9CA3AF;
-            font-size: 12px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        /* BUTTON SUBMIT */
-        .btn-submit {
-            width: 100%;
-            padding: 14px;
-            background-color: #3B82F6;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 15px;
-            margin-top: 15px;
-            transition: background-color 0.2s;
-        }
+        .divider-text { text-align: center; color: #9CA3AF; font-size: 12px; font-weight: bold; margin: 10px 0; }
+        .btn-submit { width: 100%; padding: 14px; background-color: #3B82F6; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 15px; margin-top: 15px; transition: background-color 0.2s; outline: none; }
         .btn-submit:hover { background-color: #2563EB; }
         .hidden { display: none !important; }
 
-        /* AREA PREVIEW */
-        .preview-area {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
+        .profile-widget-card { position: relative; width: 100%; max-width: 320px; margin: 0 auto 20px auto; padding: 30px 20px; border-radius: 20px; background: linear-gradient(145deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%); border: 1px solid #374151; box-shadow: 0 10px 25px rgba(0,0,0,0.5); display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+        .profile-video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0.3; }
+        .profile-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; width: 100%; }
+        .profile-img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid #3B82F6; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .profile-name { font-size: 18px; font-weight: 800; color: #FFFFFF; text-shadow: 0 2px 4px rgba(0,0,0,0.8); margin-bottom: 4px; }
+        .profile-role { font-size: 12px; font-weight: 600; color: #60A5FA; text-shadow: 0 1px 3px rgba(0,0,0,0.8); margin-bottom: 18px; letter-spacing: 1px; }
 
-        /* PREVIEW QRIS (MERCHANT) */
-        .qris-template {
-            position: relative;
-            width: 380px; 
-            height: 538px;
-            background-color: white;
-            background-image: url('qr-background.jpg');
-            background-size: cover;
-            background-position: center;
-            border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
-            overflow: hidden;
-            color: black;
-            flex-shrink: 0; 
-        }
+        .social-buttons { display: flex; gap: 15px; justify-content: center; width: 100%; flex-wrap: wrap; padding: 0 10px; }
+        .btn-social { width: 48px; height: 48px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 14px; display: flex; align-items: center; justify-content: center; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); outline: none; text-decoration: none; color: white; }
+        .btn-social:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-3px); border-color: rgba(255, 255, 255, 0.4); box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
+        .btn-social svg { width: 24px; height: 24px; fill: #ffffff; }
+
+        .glass-toast { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: rgba(17, 24, 39, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); color: white; padding: 12px 24px; border-radius: 50px; display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: bold; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 9999; transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .glass-toast.show { top: 24px; }
+        .glass-toast-icon { flex-shrink: 0; width: 22px; height: 22px; background: rgba(255, 255, 255, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+        .preview-area { display: flex; flex-direction: column; align-items: center; width: 100%; }
+        .qris-template { position: relative; width: 380px; height: 538px; background-color: white; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.8); overflow: hidden; color: black; flex-shrink: 0; }
+        .qris-bg-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
         .abs-text { position: absolute; width: 100%; text-align: center; z-index: 10; background: transparent; }
         .disp-name { top: 110px; font-weight: 800; font-size: 22px; letter-spacing: 0.5px; color: #000000; }
         .disp-nmid { top: 140px; font-size: 14px; font-weight: 500; color: #374151; }
         .disp-tid { top: 160px; font-size: 15px; font-weight: 500; color: #374151; }
-        .qr-container {
-            position: absolute;
-            top: 205px;
-            left: 115px;
-            width: 150px;
-            height: 150px;
-            background: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            z-index: 10;
-        }
-        .disp-slogan { position: absolute; top: 390px; width: 100%; text-align: center; font-size: 15px; font-weight: 800; color: #000000; z-index: 10; }
-        .disp-link { position: absolute; bottom: 95px; left: 50%; transform: translateX(-50%); width: 90%; text-align: center; font-size: 11px; font-weight: 600; color: #374151; z-index: 10; }
+        .qr-container { position: absolute; top: 205px; left: 115px; width: 150px; height: 150px; background: transparent; display: flex; align-items: center; justify-content: center; overflow: hidden; z-index: 10; }
+        .disp-slogan { position: absolute; top: 400px; width: 100%; text-align: center; font-size: 15px; font-weight: 500; color: #000000; z-index: 10; }
+        .disp-link { position: absolute; bottom: 90px; left: 50%; transform: translateX(-50%); width: 90%; text-align: center; font-size: 11px; font-weight: 600; color: #374151; z-index: 10; }
         .disp-link span { color: #1E3A8A; font-weight: bold; }
-        .disp-footer { position: absolute; bottom: 25px; left: 20px; font-size: 10px; font-weight: 600; line-height: 1.3; text-align: left; z-index: 10; color: #374151; }
+        .disp-footer { position: absolute; bottom: 30px; left: 20px; font-size: 10px; font-weight: 600; line-height: 1.3; text-align: left; z-index: 10; color: #374151; }
 
-        /* PREVIEW QR BIASA */
-        .biasa-template {
-            background-color: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0; 
-        }
-
-        /* ABOUT BOX & PROFILE WIDGET (Liquid Glass UI v2.0) */
-        .about-box {
-            background-color: rgba(31, 41, 55, 0.8);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #374151;
-            font-size: 14px;
-            line-height: 1.6;
-            color: #D1D5DB;
-        }
+        .biasa-template { position: relative; background-color: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+        .about-box { background-color: rgba(31, 41, 55, 0.8); padding: 20px; border-radius: 12px; border: 1px solid #374151; font-size: 14px; line-height: 1.6; color: #D1D5DB; }
         .about-box h3 { color: #60A5FA; margin-bottom: 12px; border-bottom: 1px solid #374151; padding-bottom: 8px;}
         .about-box ol { margin-left: 20px; margin-bottom: 20px; }
         .about-box li { margin-bottom: 6px; }
-
-        /* WIDGET KOTAK 1:1 BERGAYA SHIELDGUARD (Gambar 1001043480.jpg) */
-        .profile-widget-card {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-        .widget-video-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover;
-            z-index: 1;
-        }
-        .widget-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
-            z-index: 2;
-        }
-        .widget-content {
-            position: relative;
-            z-index: 3;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            width: 100%;
-            padding: 15px;
-        }
-        .widget-avatar {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-            margin-bottom: 12px;
-        }
-        .widget-name {
-            font-size: 20px;
-            font-weight: 800;
-            color: #ffffff;
-            letter-spacing: 0.5px;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
-        }
-        .widget-role {
-            font-size: 13px;
-            font-weight: bold;
-            color: #818CF8;
-            margin-top: 2px;
-            margin-bottom: 20px;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.9);
-        }
-        .widget-social-row {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-            flex-wrap: wrap;
-            padding: 0 10px;
-        }
-        .widget-icon-btn {
-            width: 48px;
-            height: 48px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .widget-icon-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-3px);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-        .widget-icon-btn svg {
-            width: 24px;
-            height: 24px;
-            fill: #ffffff;
-        }
-        .widget-footer-info {
-            margin-top: 22px;
-            font-size: 10px;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.5);
-            line-height: 1.4;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
-        }
-
-        /* GLASSMORPHISM NOTIFICATION SYSTEM */
-        .glass-toast {
-            position: fixed;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 40px);
-            max-width: 420px;
-            background: rgba(239, 68, 68, 0.2); /* Base red transparent */
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(239, 68, 68, 0.35);
-            padding: 16px 20px;
-            border-radius: 16px;
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            z-index: 9999;
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
-            transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .glass-toast.show {
-            top: 24px;
-        }
-        .glass-toast-icon {
-            flex-shrink: 0;
-            width: 22px;
-            height: 22px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* BUTTON DOWNLOAD */
-        .btn-download {
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            background-color: #10B981; margin-top: 25px; width: 100%; max-width: 380px; padding: 14px;
-            color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 15px;
-        }
-        .btn-download:hover { background-color: #e520e3; }
+        .copyright { text-align: center; font-weight: bold; margin-top: 25px; color: #9CA3AF; font-size: 12px; letter-spacing: 1px;}
+        .btn-download { display: flex; align-items: center; justify-content: center; gap: 8px; background-color: #10B981; margin-top: 25px; width: 100%; max-width: 380px; padding: 14px; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 15px; outline: none; }
+        .btn-download:hover { background-color: #059669; }
         .btn-download svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; }
 
-        /* RESPONSIVE */
         @media (max-width: 400px) {
             .qris-template { transform: scale(0.85); transform-origin: top center; margin-bottom: -70px; }
             .tab-btn { font-size: 11px; padding: 10px 2px; }
-            .widget-avatar { width: 75px; height: 75px; }
-            .widget-icon-btn { width: 42px; height: 42px; border-radius: 10px; }
-            .widget-icon-btn svg { width: 20px; height: 20px; }
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
-    <!-- GLASSMORPHISM NOTIFICATION ELEMENT -->
-    <div id="custom-toast" class="glass-toast">
-        <div class="glass-toast-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-        </div>
-        <div id="toast-message">Pesan notifikasi di sini...</div>
+    <div id="toastNotification" class="glass-toast">
+        <div class="glass-toast-icon">!</div>
+        <span id="toastMessage">Pesan Notifikasi</span>
     </div>
 
     <div class="container">
-        
         <div class="panel">
             <div class="panel-banner">
                 <video autoplay loop muted playsinline webkit-playsinline class="banner-video">
                     <source src="background-profile.mp4" type="video/mp4">
                 </video>
-                <div class="banner-text">QRIS Merchant Generator By KYY</div>
+                <div class="banner-text">QRIS Merchant Generator BY kyy</div>
                 <div class="banner-subtitle">Developer & Creator: Rizky Kurniawan</div>
             </div>
 
@@ -433,7 +119,6 @@
                 <button id="btn-tab-about" class="tab-btn" onclick="switchTab('about')">How & About</button>
             </div>
             
-            <!-- FORM 1: QRIS MERCHANT -->
             <div class="form-content tab-content" id="form-qris">
                 <div class="form-group">
                     <label>Masukkan Link Pembayaran</label>
@@ -464,61 +149,86 @@
                 <button onclick="generateQris()" class="btn-submit">Generate Template Merchant</button>
             </div>
 
-            <!-- FORM 2: QR BIASA -->
             <div class="form-content tab-content hidden" id="form-biasa">
                 <div class="form-group">
-                    <label>Upload Gambar QR Lama (Opsional)</label>
-                    <input type="file" id="input-biasa-file" class="form-control" accept="image/*">
-                </div>
-                
-                <div class="divider-text">ATAU</div>
-
-                <div class="form-group">
-                    <label>Masukkan Link / Teks QR Baru</label>
+                    <label>Masukkan Link / Teks QR</label>
                     <input type="text" id="input-biasa-data" class="form-control" placeholder="Contoh: https://website.com">
                 </div>
+
+                <div class="divider-text">--- PENGATURAN UKURAN ---</div>
                 
-                <button onclick="generateBiasa()" class="btn-submit">Generate QR Polos</button>
+                <div class="form-group">
+                    <label>Pilih Ukuran Latar (Max 2000px)</label>
+                    <select id="input-biasa-size-preset" class="form-control" onchange="toggleManualSize()">
+                        <option value="250x250">Kotak Standar (250 x 250 px)</option>
+                        <option value="380x538">Kartu Portrait (380 x 538 px)</option>
+                        <option value="1080x1920">Instagram Story (1080 x 1920 px)</option>
+                        <option value="custom">⚙️ Ukuran Manual (Custom)</option>
+                    </select>
+                </div>
+
+                <div class="form-row hidden" id="manual-size-row">
+                    <div class="form-group">
+                        <label>Lebar (px)</label>
+                        <input type="number" id="input-biasa-width" class="form-control" placeholder="Maks: 2000" max="2000">
+                    </div>
+                    <div class="form-group">
+                        <label>Tinggi (px)</label>
+                        <input type="number" id="input-biasa-height" class="form-control" placeholder="Maks: 2000" max="2000">
+                    </div>
+                </div>
+
+                <div class="divider-text">--- KUSTOMISASI DESAIN ---</div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Warna Pola QR</label>
+                        <input type="color" id="input-biasa-qr-color" class="form-control" value="#000000" style="padding: 2px; height: 45px; cursor: pointer;">
+                    </div>
+                    <div class="form-group">
+                        <label>Warna Background</label>
+                        <input type="color" id="input-biasa-bg-color" class="form-control" value="#ffffff" style="padding: 2px; height: 45px; cursor: pointer;">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Upload Gambar Background (Opsional)</label>
+                    <input type="file" id="input-biasa-bg-file" class="form-control" accept="image/*">
+                </div>
+
+                <button onclick="generateBiasa()" class="btn-submit">Generate Custom QR</button>
             </div>
 
-            <!-- FORM 3: HOW & ABOUT (KOTAK TABEL 1:1 DITAMBAHKAN) -->
             <div class="form-content tab-content hidden" id="form-about">
-                
-                <!-- WIDGET PROFIL 1:1 BERGAYA LIQUID GLASS UI DARI GAMBAR 1001043480.jpg -->
                 <div class="profile-widget-card">
-                    <video autoplay loop muted playsinline webkit-playsinline class="widget-video-bg">
+                    <video autoplay loop muted playsinline webkit-playsinline class="profile-video-bg">
                         <source src="banner-profile.mp4" type="video/mp4">
                     </video>
-                    <div class="widget-overlay"></div>
-                    <div class="widget-content">
-                        <img src="profile.jpg" alt="Rizky Kurniawan" class="widget-avatar">
-                        <div class="widget-name">Rizky Kurniawan</div>
-                        <div class="widget-role">Developer & Creator</div>
+                    
+                    <div class="profile-content">
+                        <img src="profile.jpg" alt="Profile" class="profile-img">
+                        <div class="profile-name">Rizky Kurniawan</div>
+                        <div class="profile-role">Developer & Creator</div>
                         
-                        <!-- BARIS IKON MEDIA SOSIAL + SOCIALBUZZ -->
-                        <div class="widget-social-row">
-                            <!-- TikTok -->
-                            <a href="https://www.tiktok.com/@rizky._kurniawan25" target="_blank" class="widget-icon-btn">
+                        <div class="social-buttons">
+                            <a href="https://www.tiktok.com/@rizky._kurniawan25" target="_blank" class="btn-social">
                                 <svg viewBox="0 0 24 24"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.06-2.89-.52-4.08-1.34-.67-.47-1.24-1.09-1.69-1.8v7.41c.1 2.22-1.25 4.39-3.38 5.14-2.11.77-4.63.17-6.15-1.42-1.58-1.64-2.01-4.23-1.01-6.24 1-1.99 3.27-3.23 5.49-2.94v4.03c-1.12-.13-2.29.35-2.88 1.32-.61.97-.47 2.34.34 3.14.8.78 2.09.91 3.03.3 1.01-.61 1.51-1.84 1.44-3.01V.02z"/></svg>
                             </a>
-                            <!-- Instagram -->
-                            <a href="https://www.instagram.com/rizky._kurniawan25" target="_blank" class="widget-icon-btn">
-                                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                            <a href="https://www.instagram.com/rizky._kurniawan25" target="_blank" class="btn-social">
+                                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
                             </a>
-                            <!-- Telegram -->
-                            <a href="https://t.me/rizky_kurniawan25" target="_blank" class="widget-icon-btn">
-                                <svg viewBox="0 0 24 24"><path d="M9.417 15.181l-.397 5.584c.568 0 .814-.244 1.109-.537l2.663-2.545 5.518 4.041c1.012.564 1.725.267 1.998-.931l3.622-16.972.001-.001c.321-1.496-.541-2.081-1.527-1.714l-21.29 8.151c-1.453.564-1.436 1.374-.247 1.741l5.447 1.694 12.66-7.925c.592-.394 1.136-.176.691.218z"/></svg>
+                            <a href="https://t.me/rizky_kurniawan25" target="_blank" class="btn-social">
+                                <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
                             </a>
-                            <!-- Discord -->
-                            <a href="https://discord.gg/Crr8MuVCe" target="_blank" class="widget-icon-btn">
+                            <a href="https://discord.gg/Crr8MuVCe" target="_blank" class="btn-social">
                                 <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.873-.894.077.077 0 0 1-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 0 1 .077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.009c.12.099.246.195.373.289a.077.077 0 0 1-.006.127 12.298 12.298 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/></svg>
                             </a>
-                            <!-- Socialbuzz (IKON BARU) -->
-                            <a href="https://sociabuzz.com/rizkyy_25/tribe" target="_blank" class="widget-icon-btn">
-                                <svg viewBox="0 0 24 24"><path d="M2 13.5h5.5V22H2v-8.5zM9.5 2h5v20h-5V2zm7.5 7h5v13h-5V9z"/></svg>
+                            <a href="https://sociabuzz.com/rizkyy_25/tribe" target="_blank" class="btn-social">
+                                <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M374.5,142.2c-15.6-33.1-39.7-59.5-70.5-77.5C271.7,46.1,234.9,37,194,40.1c-40.4,3.1-75.7,18.8-103.5,46.1 C63,113.1,47,147,42.5,186.7c-4.4,39.3,2.4,75.9,19.9,107.2c16.2,29.1,40,52.8,69.5,69.6l-50.6,90l69.7-32l29.9-53.1 c33.1,16,70.5,22.2,109.9,18c40.4-4.3,76.1-21,104.5-48.8c28.1-27.5,44.5-61.9,48-100.9C447,197.8,419.6,162.2,374.5,142.2z M353.4,228c-2,14.6-7.8,28.1-16.7,39.3c-11.4,14.5-26.6,24.1-43.9,28c-10.7,2.4-21.7,2.3-32.3-0.2c-14.7-3.4-27.8-10.8-38.3-21.2 l28.5-50.7c8.3,8.7,19.4,13.6,31.3,13.8c7.3,0.1,14.4-1.6,20.8-4.9c5.9-3.1,10.6-7.9,13.6-13.8c3.2-6.2,4.8-13.1,4.7-20.1 c-0.1-13-5.6-25.2-15.4-33.9c-8.9-7.8-20.3-12.2-32.1-12.3c-11.9,0-23.4,4.4-32.2,12.3c-9.7,8.7-15.3,21-15.4,33.9 c-0.1,7,1.5,13.8,4.7,20.1l-61,28c-6-15.1-9.1-31.2-9-47.5c0.2-22,6.5-43.4,18-62c11.8-19.1,28.6-34.4,48.7-44.4 c20.8-10.3,44-15,67.3-13.6c23,1.3,45.2,8.4,64.4,20.6c18.5,11.8,33,28.1,42,47.4C358.9,173.8,361.3,200.7,353.4,228z"/>
+                                </svg>
                             </a>
                         </div>
-                        <div class="widget-footer-info">© 2026 Rizky Kurniawan. All Rights Reserved.<br>Liquid Glass UI v2.0</div>
                     </div>
                 </div>
 
@@ -533,13 +243,17 @@
 
                     <h3>ℹ️ Tentang Aplikasi</h3>
                     <p>Aplikasi ini dibuat khusus untuk mempermudah pembuatan cetakan kartu QR Code beresolusi tinggi (HD) secara instan. Hasil download dijamin tajam dan siap langsung di-print.</p>
+
+                    <div class="copyright">
+                        © 2026 RIZKY KURNIAWAN.<br>All Rights Reserved.
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="panel preview-area hidden" id="preview-section">
-            
             <div id="preview-qris" class="qris-template hidden">
+                <img src="qr-background.png" class="qris-bg-img" alt="Background">
                 <div id="disp-name" class="abs-text disp-name"></div>
                 <div id="disp-nmid" class="abs-text disp-nmid"></div>
                 <div id="disp-tid" class="abs-text disp-tid"></div>
@@ -556,7 +270,11 @@
             </div>
 
             <div id="preview-biasa" class="biasa-template hidden">
-                <div id="qrcode-biasa-container" style="width: 250px; height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden;"></div>
+                <img id="biasa-custom-bg" src="" alt="Background" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;">
+                
+                <div id="qrcode-biasa-wrapper" style="position: relative; z-index: 2; padding: 15px; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
+                    <div id="qrcode-biasa-container"></div>
+                </div>
             </div>
 
             <button onclick="downloadImage()" class="btn-download">
@@ -566,24 +284,16 @@
                 Download Gambar (HD)
             </button>
         </div>
-
     </div>
 
     <script>
-        // Fungsi Pemicu Toast Notifikasi Glassmorphism Responsif
-        function showGlassToast(message) {
-            const toast = document.getElementById('custom-toast');
-            const msgEl = document.getElementById('toast-message');
-            msgEl.innerText = message;
-            
+        function showToast(message) {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastMessage').innerText = message;
             toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3500);
+            setTimeout(() => { toast.classList.remove('show'); }, 3500);
         }
 
-        // Fungsi Tab Menu
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -593,7 +303,6 @@
             document.getElementById('btn-tab-' + tabName).classList.add('active');
         }
 
-        // Fungsi Generate QRIS Merchant
         function generateQris() {
             const name = document.getElementById('input-qris-name').value.trim();
             const nmid = document.getElementById('input-qris-nmid').value.trim();
@@ -603,7 +312,7 @@
             const textInput = document.getElementById('input-qris-data').value.trim();
 
             if (!textInput) {
-                showGlassToast("Harap masukkan Link Pembayaran terlebih dahulu!");
+                showToast("Harap masukkan Link Pembayaran terlebih dahulu!");
                 return;
             }
 
@@ -631,48 +340,81 @@
             document.getElementById('preview-section').classList.remove('hidden');
         }
 
-        // Fungsi Generate QR Biasa
-        function generateBiasa() {
-            const fileInput = document.getElementById('input-biasa-file');
-            const textInput = document.getElementById('input-biasa-data').value.trim();
-            const container = document.getElementById('qrcode-biasa-container');
-            
-            if (!textInput && (!fileInput.files || fileInput.files.length === 0)) {
-                showGlassToast("Harap masukkan Link/Teks ATAU Upload File terlebih dahulu!");
-                return;
-            }
-
-            container.innerHTML = ''; 
-            document.getElementById('preview-qris').classList.add('hidden');
-            document.getElementById('preview-biasa').classList.remove('hidden');
-
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.style.width = '100%';
-                    img.style.height = '100%';
-                    img.style.objectFit = 'contain';
-                    container.appendChild(img);
-                    document.getElementById('preview-section').classList.remove('hidden');
-                }
-                reader.readAsDataURL(fileInput.files[0]);
+        function toggleManualSize() {
+            const preset = document.getElementById('input-biasa-size-preset').value;
+            const manualRow = document.getElementById('manual-size-row');
+            if (preset === 'custom') {
+                manualRow.classList.remove('hidden');
             } else {
-                new QRCode(container, {
-                    text: textInput, 
-                    width: 250, 
-                    height: 250,
-                    colorDark : "#000000", 
-                    colorLight : "#ffffff",
-                    correctLevel : QRCode.CorrectLevel.H,
-                    quietZone: 0
-                });
-                document.getElementById('preview-section').classList.remove('hidden');
+                manualRow.classList.add('hidden');
             }
         }
 
-        // Fungsi Download (Kualitas HD & Nama File Random Dinamis)
+        function generateBiasa() {
+            const textInput = document.getElementById('input-biasa-data').value.trim();
+            if (!textInput) {
+                showToast("Harap masukkan Link / Teks QR terlebih dahulu!");
+                return;
+            }
+
+            const preset = document.getElementById('input-biasa-size-preset').value;
+            let width = 250, height = 250;
+
+            if (preset === 'custom') {
+                width = parseInt(document.getElementById('input-biasa-width').value) || 250;
+                height = parseInt(document.getElementById('input-biasa-height').value) || 250;
+                if (width > 2000) width = 2000;
+                if (height > 2000) height = 2000;
+            } else {
+                const parts = preset.split('x');
+                width = parseInt(parts[0]);
+                height = parseInt(parts[1]);
+            }
+
+            const qrColor = document.getElementById('input-biasa-qr-color').value;
+            const bgColor = document.getElementById('input-biasa-bg-color').value;
+            const bgFileInput = document.getElementById('input-biasa-bg-file');
+
+            const previewBiasa = document.getElementById('preview-biasa');
+            const wrapperQR = document.getElementById('qrcode-biasa-wrapper');
+            const containerQR = document.getElementById('qrcode-biasa-container');
+            const bgImgEl = document.getElementById('biasa-custom-bg');
+
+            previewBiasa.style.width = width + 'px';
+            previewBiasa.style.height = height + 'px';
+            previewBiasa.style.backgroundColor = bgColor;
+            wrapperQR.style.backgroundColor = bgColor;
+
+            const qrSize = Math.floor(Math.min(width, height) * 0.7); 
+
+            if (bgFileInput.files && bgFileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    bgImgEl.src = e.target.result;
+                    bgImgEl.style.display = 'block';
+                }
+                reader.readAsDataURL(bgFileInput.files[0]);
+            } else {
+                bgImgEl.style.display = 'none';
+                bgImgEl.src = '';
+            }
+
+            containerQR.innerHTML = ''; 
+            new QRCode(containerQR, {
+                text: textInput, 
+                width: qrSize, 
+                height: qrSize,
+                colorDark : qrColor, 
+                colorLight : bgColor,
+                correctLevel : QRCode.CorrectLevel.H,
+                quietZone: 0
+            });
+
+            document.getElementById('preview-qris').classList.add('hidden');
+            previewBiasa.classList.remove('hidden');
+            document.getElementById('preview-section').classList.remove('hidden');
+        }
+
         function downloadImage() {
             let targetId = 'preview-qris';
             if (!document.getElementById('preview-biasa').classList.contains('hidden')) {
@@ -682,12 +424,18 @@
             const targetElement = document.getElementById(targetId);
             window.scrollTo(0,0); 
 
+            const isApp = window.navigator.userAgent.includes('wv') || window.navigator.userAgent.includes('Android');
+            const scaleSetting = isApp ? 2 : 4; 
+
             html2canvas(targetElement, { 
-                scale: 4, 
+                scale: scaleSetting, 
                 useCORS: true,
                 backgroundColor: null,
                 logging: false,
-                imageTimeout: 0
+                imageTimeout: 0,
+                imageRendering: 'high-quality',
+                allowTaint: true,
+                foreignObjectRendering: false
             }).then(canvas => {
                 const link = document.createElement('a');
                 const angkaRandom = Math.floor(1000 + Math.random() * 9000);
@@ -695,8 +443,15 @@
                 let prefix = targetId === 'preview-biasa' ? 'QR_Biasa_kyy_' : 'QR_Merchant_kyy_';
                 link.download = prefix + angkaRandom + '.png'; 
                 
-                link.href = canvas.toDataURL('image/png', 1.0); 
-                link.click();
+                link.href = canvas.toDataURL('image/png'); 
+                
+                if (isApp) {
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                } else {
+                    link.click();
+                }
             });
         }
     </script>
